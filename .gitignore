@@ -1,0 +1,8 @@
+# Godot 4+ specific ignores
+.godot/
+/android/
+.catharsis_backup/
+.catharsis_crt_backup/
+.catharsis_crt_safe/
+/Catharsis/
+addons/ziva_agent/bin/windows_x86_64/~*.TMP

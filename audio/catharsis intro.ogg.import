@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://d0skyec4y3m22"
+path="res://.godot/imported/catharsis intro.ogg-a70efbca5dee40e5862481432859ef4d.oggvorbisstr"
+
+[deps]
+
+source_file="res://audio/catharsis intro.ogg"
+dest_files=["res://.godot/imported/catharsis intro.ogg-a70efbca5dee40e5862481432859ef4d.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

@@ -1,0 +1,99 @@
+[gd_scene load_steps=12 format=3]
+
+[ext_resource type="Script" path="res://scripts/player.gd" id="1_player"]
+[ext_resource type="Texture2D" uid="uid://bptbmmldh8cvh" path="res://assets/idle.png" id="2_idle"]
+
+[sub_resource type="RectangleShape2D" id="body_shape"]
+size = Vector2(40, 56)
+
+[sub_resource type="RectangleShape2D" id="attack_shape"]
+size = Vector2(52, 44)
+
+[sub_resource type="Gradient" id="torch_grad"]
+offsets = PackedFloat32Array(0, 0.45, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0.5, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="torch_tex"]
+gradient = SubResource("torch_grad")
+width = 256
+height = 256
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(1, 0.5)
+
+[sub_resource type="AtlasTexture" id="idle_f0"]
+atlas = ExtResource("2_idle")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="idle_f1"]
+atlas = ExtResource("2_idle")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="idle_f2"]
+atlas = ExtResource("2_idle")
+region = Rect2(0, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="idle_f3"]
+atlas = ExtResource("2_idle")
+region = Rect2(32, 32, 32, 32)
+
+[sub_resource type="SpriteFrames" id="idle_frames"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("idle_f0")
+}, {
+"duration": 1.0,
+"texture": SubResource("idle_f1")
+}, {
+"duration": 1.0,
+"texture": SubResource("idle_f2")
+}, {
+"duration": 1.0,
+"texture": SubResource("idle_f3")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 4.0
+}]
+
+[node name="Player" type="CharacterBody2D"]
+collision_layer = 2
+collision_mask = 1
+script = ExtResource("1_player")
+
+[node name="Body" type="AnimatedSprite2D" parent="."]
+offset = Vector2(2.5, 6)
+scale = Vector2(3.5, 3.5)
+sprite_frames = SubResource("idle_frames")
+animation = &"idle"
+autoplay = &"idle"
+
+[node name="Collision" type="CollisionShape2D" parent="."]
+shape = SubResource("body_shape")
+
+[node name="TorchLight" type="PointLight2D" parent="."]
+position = Vector2(34, -6)
+color = Color(1, 0.76, 0.45, 1)
+energy = 1.35
+texture = SubResource("torch_tex")
+texture_scale = 1.7
+shadow_enabled = true
+shadow_filter = 1
+shadow_filter_smooth = 1.5
+
+[node name="GlowLight" type="PointLight2D" parent="."]
+color = Color(1, 0.85, 0.62, 1)
+energy = 0.3
+texture = SubResource("torch_tex")
+texture_scale = 2.6
+
+[node name="AttackArea" type="Area2D" parent="."]
+collision_layer = 8
+collision_mask = 4
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackArea"]
+position = Vector2(40, -4)
+shape = SubResource("attack_shape")
+disabled = true

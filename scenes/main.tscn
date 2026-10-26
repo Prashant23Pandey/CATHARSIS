@@ -1,0 +1,136 @@
+[gd_scene load_steps=10 format=3]
+
+[ext_resource type="PackedScene" path="res://scenes/block.tscn" id="1_block"]
+[ext_resource type="PackedScene" path="res://scenes/block_lit.tscn" id="5_lit"]
+[ext_resource type="PackedScene" path="res://scenes/debris.tscn" id="6_debris"]
+[ext_resource type="PackedScene" path="res://scenes/player.tscn" id="2_player"]
+[ext_resource type="Script" path="res://scripts/pause_menu.gd" id="3_pause"]
+[ext_resource type="Script" path="res://scripts/main.gd" id="4_main"]
+[ext_resource type="AudioStream" uid="uid://vs8jqn342jsy" path="res://audio/ambience.ogg" id="7_ambogg"]
+[ext_resource type="Script" path="res://scripts/ambience.gd" id="8_amb"]
+
+[sub_resource type="RectangleShape2D" id="void_shape"]
+size = Vector2(2800, 80)
+
+[node name="Main" type="Node2D"]
+script = ExtResource("4_main")
+
+[node name="CanvasModulate" type="CanvasModulate" parent="."]
+color = Color(0.15, 0.16, 0.21, 1)
+
+[node name="Geometry" type="Node2D" parent="."]
+
+[node name="Floor1" parent="Geometry" instance=ExtResource("5_lit")]
+position = Vector2(260, 580)
+size = Vector2(520, 40)
+color = Color(0.33, 0.32, 0.37, 1)
+
+[node name="Floor2" parent="Geometry" instance=ExtResource("5_lit")]
+position = Vector2(790, 540)
+size = Vector2(380, 40)
+color = Color(0.33, 0.32, 0.37, 1)
+
+[node name="Floor3" parent="Geometry" instance=ExtResource("5_lit")]
+position = Vector2(1240, 500)
+size = Vector2(320, 40)
+color = Color(0.33, 0.32, 0.37, 1)
+
+[node name="Floor4" parent="Geometry" instance=ExtResource("5_lit")]
+position = Vector2(1760, 580)
+size = Vector2(480, 40)
+color = Color(0.33, 0.32, 0.37, 1)
+
+[node name="Floor5" parent="Geometry" instance=ExtResource("5_lit")]
+position = Vector2(2240, 540)
+size = Vector2(320, 40)
+color = Color(0.33, 0.32, 0.37, 1)
+
+[node name="Plat1" parent="Geometry" instance=ExtResource("5_lit")]
+position = Vector2(760, 436)
+size = Vector2(120, 24)
+color = Color(0.29, 0.28, 0.34, 1)
+
+[node name="Plat2" parent="Geometry" instance=ExtResource("5_lit")]
+position = Vector2(1240, 396)
+size = Vector2(120, 24)
+color = Color(0.29, 0.28, 0.34, 1)
+
+[node name="Plat3" parent="Geometry" instance=ExtResource("5_lit")]
+position = Vector2(1690, 476)
+size = Vector2(140, 24)
+color = Color(0.29, 0.28, 0.34, 1)
+
+[node name="Rubble1" parent="Geometry" instance=ExtResource("6_debris")]
+position = Vector2(300, 548)
+size = Vector2(52, 24)
+color = Color(0.2, 0.2, 0.25, 1)
+
+[node name="Rubble2" parent="Geometry" instance=ExtResource("6_debris")]
+position = Vector2(760, 508)
+size = Vector2(52, 24)
+color = Color(0.2, 0.2, 0.25, 1)
+
+[node name="Rubble3" parent="Geometry" instance=ExtResource("6_debris")]
+position = Vector2(1780, 548)
+size = Vector2(52, 24)
+color = Color(0.2, 0.2, 0.25, 1)
+
+[node name="LeftWall" parent="Geometry" instance=ExtResource("1_block")]
+position = Vector2(0, 440)
+size = Vector2(40, 320)
+color = Color(0.25, 0.25, 0.31, 1)
+
+[node name="RightWall" parent="Geometry" instance=ExtResource("1_block")]
+position = Vector2(2420, 440)
+size = Vector2(40, 320)
+color = Color(0.25, 0.25, 0.31, 1)
+
+[node name="Ceil1" parent="Geometry" instance=ExtResource("1_block")]
+position = Vector2(300, 300)
+size = Vector2(600, 40)
+color = Color(0.25, 0.25, 0.31, 1)
+
+[node name="Ceil2" parent="Geometry" instance=ExtResource("1_block")]
+position = Vector2(900, 300)
+size = Vector2(600, 40)
+color = Color(0.25, 0.25, 0.31, 1)
+
+[node name="Ceil3" parent="Geometry" instance=ExtResource("1_block")]
+position = Vector2(1600, 300)
+size = Vector2(800, 40)
+color = Color(0.25, 0.25, 0.31, 1)
+
+[node name="Ceil4" parent="Geometry" instance=ExtResource("1_block")]
+position = Vector2(2220, 300)
+size = Vector2(440, 40)
+color = Color(0.25, 0.25, 0.31, 1)
+
+[node name="Spawn" type="Marker2D" parent="."]
+position = Vector2(120, 532)
+
+[node name="Player" parent="." instance=ExtResource("2_player")]
+position = Vector2(120, 532)
+
+[node name="Camera2D" type="Camera2D" parent="Player"]
+limit_left = 0
+limit_top = 0
+limit_right = 2440
+limit_bottom = 720
+position_smoothing_enabled = true
+position_smoothing_speed = 6.0
+
+[node name="VoidZone" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="VoidZone"]
+position = Vector2(1220, 820)
+shape = SubResource("void_shape")
+
+[node name="PauseMenu" type="CanvasLayer" parent="."]
+script = ExtResource("3_pause")
+
+[node name="Ambience" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("7_ambogg")
+volume_db = -20.0
+script = ExtResource("8_amb")
